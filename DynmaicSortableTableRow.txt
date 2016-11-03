@@ -1,0 +1,51 @@
+<div ng:controller="controller">
+    <table style="width:auto;" class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Index</th>
+                <th>Count</th>
+                <th>item</th>
+            </tr>
+        </thead>
+        <tbody ui:sortable ng:model="list">
+            <tr ng:repeat="item in list" class="item" style="cursor: move;">
+                <td>{{$index}}</td>
+                <td>{{item.x}}</td>
+                <td><input type="text" ng-model="list[$index].val1"></td>
+            </tr>
+        </tbody>{{list}}{{list[2]}}
+        <hr>
+        </table>
+        <button type="button" ng-click="save()">
+        Save
+        </button>
+</div>
+<script src="http://code.angularjs.org/1.0.2/angular.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.min.js"></script>
+
+
+
+
+
+var myapp = angular.module('myapp', ['ui']);
+
+myapp.controller('controller', function ($scope) {
+$scope.item1=[];
+$scope.list=[];
+$scope.list=[
+{x:'abc1',val1:'pqr1'},
+{x:'abc2',val1:'pqr2'},
+{x:'abc3',val1:'pqr3'},
+{x:'abc4',val1:'pqr4'},
+{x:'abc5',val1:'pqr5'}
+];
+  
+    $scope.save=function(){
+    console.log($scope.list);
+    }
+});
+
+angular.bootstrap(document, ['myapp']);
+
+
+

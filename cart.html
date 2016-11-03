@@ -1,0 +1,231 @@
+﻿<!DOCTYPE html>
+<html ng-app="sportsStore">
+<head>
+    <title>Shopping Cart</title>
+    <link href="Content/bootstrap-theme.css" rel="stylesheet" />
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <script src="Scripts/angular.js"></script>
+    <script src="Scripts/angular-route.js"></script>
+    <meta charset="utf-8" />
+    <script>
+        var sportsStore = angular.module("sportsStore", ["ngRoute"]);
+
+        //filter for category side bar menu
+
+        sportsStore.filter("unique", function () {
+            return function (data, propertyName) {
+                if (angular.isArray(data) && angular.isString(propertyName)) {
+                    var results = [];
+                    var keys = [];
+                    for (i = 0; i < data.length; i++) {
+                        var val = data[i][propertyName];
+                        if (!angular.isDefined(keys[val])) {
+                            keys[val] = true;
+                            results.push(val);
+                        }
+                    }
+                    return results;
+                }
+                else {
+                    return data;
+                }
+            }
+        });
+
+        //filter for pagination
+
+        sportsStore.filter("range", function ($filter) {
+            return function (data, page, size) {
+
+                if (angular.isArray(data) && angular.isNumber(page) && angular.isNumber(size)) {
+                    var start_index = (page - 1) * size;
+                    if (data.length < start_index) {
+                        return [];
+                    } else {
+                        return $filter("limitTo")(data.splice(start_index), size);
+                    }
+                }
+                else {
+                    return data;
+                }
+            }
+        });
+
+        sportsStore.filter("pageCount", function () {
+            return function (data, size) {
+
+                if (angular.isArray(data)) {
+                    var result = [];
+
+                    for (var i = 0; i < Math.ceil(data.length / size) ; i++) {
+                        result.push(i);
+                    }
+                    return result;
+                }
+                else {
+                    return data;
+                }
+            }
+        });
+
+        sportsStore.factory("cart", function () {
+            var cartData = [];
+            return {
+                addProduct: function (id, name, price) {
+                    var addedToExistingItem = false;
+                    for (var i = 0; i < cartData.length; i++) {
+                        if (cartData[i].id == id) {
+                            cartData[i].count++;
+                            addedToExistingItem = true;
+                            break;
+                        }
+                    }
+                    if (!addedToExistingItem) {
+                        cartData.push({
+                            count: 1, id: id, price: price, name: name
+                        });
+                    }
+                },
+                removeProduct: function (id) {
+                    for (var i = 0; i < cartData.length; i++) {
+                        if (cartData[i].id == id) {
+                            cartData.splice(i, 1);
+                            break;
+                        }
+                    }
+                },
+                getProducts: function () {
+                    return cartData;
+                }
+            }
+        });
+
+        sportsStore.directive("cartSummary", function (cart) {
+            return {
+                restrict: "E",
+                templateUrl: "cartSummary.html",
+                controller: function ($scope) {
+                    var cartData = cart.getProducts();
+                    $scope.total = function () {
+                        var total = 0;
+                        for (var i = 0; i < cartData.length; i++) {
+                            total += (cartData[i].price * cartData[i].count);
+                        }
+                        return total;
+                    }
+                    $scope.itemCount = function () {
+                        var total = 0;
+                        for (var i = 0; i < cartData.length; i++) {
+                            total += cartData[i].count;
+                        }
+                        return total;
+                    }
+                }
+            };
+        });
+
+        sportsStore.controller("sportsStoreCtrl", function ($scope, $http) {
+            $scope.data = {
+                products: [{ name: "Product #1", description: "A Product", category: "Category #1", price: 100 },
+                    { name: "Product #2", description: "A Product", category: "Category #1", price: 110 },
+                    { name: "Product #3", description: "A Product", category: "Category #2", price: 210 },
+                    { name: "Product #4", description: "A Product", category: "Category #3", price: 202 }
+                ]
+            };
+            //$scope.data = {};
+            //$http.get("http://apress.com")
+            //.success(function (data) {
+            //    $scope.data.products = data;
+            //})
+            //.error(function (data) {
+
+            //    $scope.data.error = "error";
+            //});
+        });
+
+        sportsStore.controller("productListCtrl", function ($scope, $filter, productListActiveClass, productListPageCount, cart) {
+            var selectedCategory = null;
+            $scope.selectedPage = 1;
+            $scope.PageSize = productListPageCount;
+
+            $scope.selectCategory = function (newCategory) {
+                selectedCategory = newCategory;
+                $scope.selectedPage = 1;
+            }
+
+            $scope.selectPage = function (newPage) {
+                $scope.selectedPage = newPage;
+            }
+
+            $scope.categoryFilterFn = function (product) {
+
+                return selectedCategory == null ||
+                product.category == selectedCategory;
+            }
+
+            $scope.getCategoryClass = function (category) {
+                return selectedCategory == category ? productListActiveClass : "";
+            }
+
+            $scope.getPageClass = function (page) {
+                return $scope.selectedPage == page ? productListActiveClass : "";
+            }
+
+            $scope.addProductToCart = function (product) {
+                cart.addProduct(product.id, product.name, product.price);
+            }
+
+        });
+
+        sportsStrore.controller("cartSummaryController", function ($scope, cart) {
+
+            $scope.cartData = cart.getProducts();
+
+            $scope.total = function () { var total = 0; for (var i = 0; i < $scope.cartData.length; i++) { total += ($scope.cartData[i].price * $scope.cartData[i].count); } return total; }
+
+            $scope.remove = function (id) { cart.removeProduct(id); }
+        });
+
+        sportsStore.constant("productListActiveClass", "btn-primary");
+        sportsStore.constant("productListPageCount", 3);
+
+        sportsStore.config(function ($routeProvider) {
+            $routeProvider.when("/complete", {
+                templateUrl: "thankyou.html"
+            });
+
+            $routeProvider.when("/placeorder", {
+                templateUrl: "placeOrder.html"
+            });
+            $routeProvider.when("/products", {
+                templateUrl: "productList.html"
+            });
+            $routeProvider.otherwise({
+                templateUrl: "productList.html"
+            });
+        });
+    </script>
+    <style>
+        .navbar-right {
+            float: right !important;
+            margin-right: 5px;
+        }
+
+        .navbar-text {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body ng-controller="sportsStoreCtrl">
+    <div class="navbar navbar-inverse">
+        <a class="navbar-brand" href="#">SPORTS STORE</a>
+        <cart-summary />
+    </div>
+    <!--<div class="alert alert-danger" ng-show="data.error">
+        Error ({{data.error}}). The product data was not loaded.
+        <a href="/cart.html" class="alert-link">Click here to try again</a>
+    </div>-->
+    <ng-view></ng-view>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html ng-app="sample">
+<head>
+    <title>angular-toaster-sample!</title>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <link href="Content/toaster.min.css" rel="stylesheet" />
+    <script src="Scripts/jquery-1.12.4.min.js"></script>
+    <script src="Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/angular.js"></script>
+    <script src="Scripts/angular-animate.min.js"></script>
+    <script src="Scripts/toaster.js"></script>
+    <script src="app/resources/js/ToastrDemo.js"></script>
+
+    <!-- If you Get Null values in your Function by defalut show this Template -->
+    <script type="text/ng-template" id="toasterBodyTmpl.html">
+        <p>Null values ! Here is your default template</p>
+    </script>
+    <!-- Including Custom template -->
+    <script type="text/ng-template" id="myTemplate.html">
+        <div class="Custom_temp_html">
+            <p>Hello this is my Customm Template</p>
+        </div>
+    </script>
+
+    <!-- Including Template as well as data from Script -->
+    <script type="text/ng-template" id="myTemplateWithData.html">
+        <p>Here it is! {{toaster.data}}</p>
+    </script>
+
+    <!-- Incuding File From another folder -->
+    <script toaster-options="{'time-out': 3000,'position-class': 'toast-top-center','body-output-type': 'template'}" id="myTemplate">
+
+    </script>
+    <style>
+        .container {
+            padding-top: 20px;
+        }
+
+        .btn-primary {
+            width: 100% !important;
+        }
+
+        .rows {
+            padding: 25px !important;
+        }
+
+        .Custom_temp_html {
+            width: 100%;
+            height: 400px;
+            background-color: #00bbff;
+        }
+
+        .hightlight {
+            padding: 15px !important;
+            background: red;
+        }
+
+        .trustedHtml_text {
+            height: 400px;
+            background: #00bbff;
+            color: #fff;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div ng-controller="HomeController" class="container">
+
+        <span>Simple Notifications:</span>
+        <div class="rows">
+            <div class="col-md-2"><button class="btn btn-primary" href ng-click="simple()">Simple notification</button></div>
+            <div class="col-md-2"><button class="btn btn-warning" href ng-click="warning()">Warning notification</button></div>
+            <div class="col-md-2"><button class="btn btn-success" href ng-click="success()">Success notification</button></div>
+            <div class="col-md-2"><button class="btn btn-danger" href ng-click="error()">Error notification</button></div>
+            <div class="col-md-2"><button class="btn btn-grimace" href ng-click="wait()">Wait notification</button></div>
+        </div>
+        <hr />
+        <br />
+
+        <!-- TO show the Notification Basic -->
+        <toaster-container toaster-options="{'time-out': 3000,'position-class': 'toast-top-right'}"></toaster-container>
+        
+    </div>
+</body>
+</html>

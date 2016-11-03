@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+   
+    <!--<script src="Scripts/jquery-ui-1.12.1.min.js"></script>-->
+    <script src="Scripts/jquery-1.12.4.min.js"></script>
+    <script src="Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="Scripts/angular.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+   
+  
+    <script src="app/resources/js/DynamicWebformWithDragDrop.js"></script>
+    <!--Page Level-->
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+
+    <style type="text/css">
+         #divContainer, #divResize { 
+            border:dashed 1px #CCC; 
+            width:120px; 
+            height:120px; 
+            padding:5px; 
+            margin:5px; 
+            font:13px Arial; 
+            cursor:move; 
+            float:left 
+        } 
+    </style>
+</head>
+<body>
+    <div ng-controller="DynamicWebFormCtrl" ng-app="myapp">
+        <div id="divContainer">
+            I am Draggable
+        </div>
+
+        <input type="button" style="float:left" id="btClickMe" value="Create more draggable DIV's" />
+
+        <div id="divResize">
+            I am Draggable and Resizable
+        </div>
+    </div>
+</body>
+</html>

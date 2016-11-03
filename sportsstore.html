@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html ng-app="sportsStore">
+<head>
+    <title>SportsStore</title>
+    <link href="Content/bootstrap-theme.css" rel="stylesheet" />
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <script src="Scripts/angular.js"></script>
+    <meta charset="utf-8" />
+    <script>
+        var sportsStore = angular.module("sportsStore", []);
+        sportsStore.controller("sportsStoreCtrl", function ($scope,$http) {
+            $scope.data = {
+                products: [{ name: "Product #1", description: "A Product", category: "Category #1", price: 100 },
+                    { name: "Product #2", description: "A Product", category: "Category #1", price: 110 },
+                    { name: "Product #3", description: "A Product", category: "Category #2", price: 210 },
+                    { name: "Product #4", description: "A Product", category: "Category #3", price: 202 }
+                ]
+            };
+            //$scope.data = {};
+            //$http.get("http://apress.com")
+            //.success(function (data) {
+            //    $scope.data.products = data;
+            //})
+            //.error(function (data) {
+                
+            //    $scope.data.error = "error";
+            //});
+        });
+
+        //filter for side bar menu category menu left side menu
+        sportsStore.filter("unique", function () {
+            return function (data, propertyName) {
+                if (angular.isArray(data) && angular.isString(propertyName)) {
+                    var results = [];
+                    var keys = [];
+                    for (i = 0; i < data.length; i++) {
+                        var val = data[i][propertyName];
+                        if (!angular.isDefined(keys[val])) {
+                            keys[val] = true;
+                            results.push(val);
+                        }
+                    }
+                    return results;
+                }
+                else {
+                    return data;
+                }
+            }
+        });
+
+
+        //filter for pagination
+        sportsStore.filter("range", function ($filter) {
+            return function (data, page, size) {
+               
+                if (angular.isArray(data) && angular.isNumber(page) && angular.isNumber(size)) {
+                    var start_index = (page - 1) * size;
+                    if (data.length < start_index) {
+                        return [];
+                    } else {
+                        return $filter("limitTo")(data.splice(start_index), size);
+                    }
+                }
+                else {
+                    return data;
+                }
+            }
+        });
+
+        //filter for pagination
+        sportsStore.filter("pageCount", function () {
+            return function (data, size) {
+                if (angular.isArray(data)) {
+                    var result = [];
+                   
+                    for (var i = 0; i < Math.ceil(data.length / size) ; i++) {
+                        result.push(i);
+                    }
+                    console.log(result);
+                    return result;
+                }
+                else {
+                    console.log('else');
+                    return data;
+                }
+            }
+        });
+
+        sportsStore.controller("productListCtrl", function ($scope, $filter, productListActiveClass, productListPageCount) {
+            var selectedCategory = null;
+            $scope.selectedPage = 1;
+            $scope.PageSize = productListPageCount;
+            
+            $scope.selectCategory = function (newCategory) {
+                selectedCategory = newCategory;
+                $scope.selectedPage = 1;
+            }
+
+            $scope.selectPage = function (newPage) {
+                $scope.selectedPage = newPage;
+            }
+
+            $scope.categoryFilterFn = function (product) {
+                return selectedCategory == null ||
+                product.category == selectedCategory;
+            }
+
+            $scope.getCategoryClass = function (category) {
+                return selectedCategory == category ? productListActiveClass : "";
+            }
+
+            $scope.getPageClass = function (page) {
+                return $scope.selectedPage == page ? productListActiveClass : "";
+            }
+
+        });
+        sportsStore.constant("productListActiveClass", "btn-primary");
+        sportsStore.constant("productListPageCount", 3);
+    </script>
+</head>
+<body ng-controller="sportsStoreCtrl">
+    <div class="navbar navbar-inverse">
+        <a class="navbar-brand" href="#">SPORTS STORE</a>
+    </div>
+
+    <div class="alert alert-danger" ng-show="data.error">
+        Error ({{data.error}}). The product data was not loaded.
+        <a href="/sportsstore.html" class="alert-link">Click here to try again</a>
+    </div>
+
+    <div class="panel panel-default row" ng-controller="productListCtrl" ng-hide="data.error">
+        <div class="col-xs-3">
+            <a ng-click="selectCategory()" class="btn btn-block btn-default btn-lg">Home</a>
+            <a ng-repeat="item in data.products | orderBy:'category' | unique:'category'" ng-click="selectCategory(item)" class="btn btn-block btn-default btn-lg" ng-class="getCategoryClass(item)">
+                {{item}}
+            </a>
+
+        </div>
+        <div class="col-xs-8">
+            <div class="well" ng-repeat="item in data.products | filter:categoryFilterFn | range:selectedPage:PageSize">
+                <h3>
+                    <strong>{{item.name}}</strong>
+                    <span class="pull-right label label-primary">
+                        {{item.price | currency}}
+                    </span>
+                </h3>
+                <span class="lead">{{item.description}}</span>
+            </div>
+            <div class="pull-right btn-group">
+                <a ng-repeat="page in data.products | filter:categoryFilterFn | pageCount:PageSize"
+                   ng-click="selectPage($index + 1)" class="btn btn-default"
+                   ng-class="getPageClass($index + 1)">
+                    {{$index + 1}}
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

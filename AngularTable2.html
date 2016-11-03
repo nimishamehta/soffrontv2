@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="Scripts/jquery-1.9.1.min.js"></script>
+    <script src="Scripts/angular.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="Scripts/ng-table.min.js"></script>
+    <link href="Content/ng-table.min.css" rel="stylesheet" />
+    <script src="app/resources/js/app1.js"></script>
+    <script src="app/resources/js/pagination.js"></script>
+    <link href="Content/bootstrap-combined.min..css" rel="stylesheet" />
+    <style type="text/css">
+        .demoTable td:last-child {
+  min-width: 90px;
+}
+
+/** Editable table
+------------------------- */
+
+.editable-table > tbody > tr > td {
+  padding: 4px
+}
+.editable-text {
+  padding-left: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  display: inline-block;
+}
+.editable-table tbody > tr > td > .controls {
+  //width: 100%
+}
+.editable-input {
+  padding-left: 3px;
+}
+.editable-input.input-sm {
+  height: 30px;
+  font-size: 14px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+    </style>
+    <link href="css/font-awesome.css" rel="stylesheet" />
+</head>
+<body ng-app="ngtableApp">
+    <div class="container-fluid" ng-controller="ngtableCtrl">
+            <h2>AngularJS ng-table Pagination Example</h2>
+            <table ng-table="usersTable" class="table table-striped">
+                <tr>
+                    <td>
+                        <a href="#" ng-click="sortType = 'name'; sortReverse = !sortReverse">
+                            Name
+                            <span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#" ng-click="sortType = 'age'; sortReverse = !sortReverse">
+                            Age
+                            <span ng-show="sortType == 'age' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'age' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#" ng-click="sortType = 'location'; sortReverse = !sortReverse">
+                            Location
+                            <span ng-show="sortType == 'location' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'location' && sortReverse" class="fa fa-caret-up"></span>
+                        </a>
+                    </td>
+                    <!--<th>Name</th>
+                    <th>Age</th>
+                    <th>Location</th>-->
+                </tr>
+                <tr>
+                    <td>
+                        <input ng-model="searchtxt.name" type="text" placeholder="Enter Only Name" />
+                    </td>
+                    <td>
+                        <input ng-model="searchtxt.age" type="text" placeholder="Enter Only Name" />
+                    </td>
+                    <td>
+                        <input ng-model="searchtxt.location" type="text" placeholder="Enter Only Name" />
+                    </td>
+                </tr>
+                <tr ng-repeat="user in data | filter:searchtxt | orderBy:sortType:sortReverse">
+                    <td data-title="'Name'">{{user.name}}</td>
+                    <td data-title="'Age'">{{user.age}}</td>
+                    <td data-title="'Location'">{{user.location}}</td>
+                </tr>
+            </table>
+
+        </div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    
+    <script src="Scripts/jquery-1.9.1.min.js"></script>
+    <script src="Scripts/angular.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="app/resources/js/HtmlEditor/summernote.min.js"></script>
+    <!--Page Level-->
+    <script src="app/resources/js/HtmlEditorDemo.js"></script>
+    <!--Page Level-->
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/HtmlEditor/summernote.css" rel="stylesheet" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <script type="text/javascript">
+        function call1() {
+            console.log('1111');
+            console.log($('.note-editable').html());
+            var val1 = $('.note-editable').html();
+        }
+        
+    </script>
+</head>
+<body>
+    <div ng-controller="MainCtrl" class="container" ng-app="app">
+        <h2>Summernote Editor for Bootstrap - AngularJS example</h2>
+        <div>
+        <textarea id="summernote"></textarea>
+        </div>
+        <br>
+        <button class="btn btn-lg btn-default" type="button" ng-click="call1()">Save</button>
+        <p>{{text1}}</p>
+     
+    </div>
+</body>
+</html>

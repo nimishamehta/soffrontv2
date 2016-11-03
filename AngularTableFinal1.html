@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="Scripts/angular.js"></script>
+    <script src="Scripts/angular-sanitize.js"></script>
+    <script src="Scripts/jquery-1.12.4.min.js"></script>
+    <script src="Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/dragtable.css" rel="stylesheet" />
+    <!--<link rel="stylesheet" type="text/css" href="http://akottr.github.io/css/reset.css" />-->
+    <link rel="stylesheet" type="text/css" href="http://akottr.github.io/css/akottr.css" />
+
+    <script src="Scripts/ng-table.min.js"></script>
+    <link href="Content/ng-table.min.css" rel="stylesheet" />
+    <script src="Scripts/angular-animate.min.js"></script>
+    <script src="app/resources/js/AngularTableFinal1.js"></script>
+    <script src="Scripts/Sortable/jquery.dragtable.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#table2').dragtable();
+            $('#table1').dragtable();
+            $('#table1 th').each(function () {
+                $(this).html(":::::");
+            });
+        });
+    </script>
+    <style type="text/css">
+        .demoTable td:last-child {
+            min-width: 90px;
+        }
+
+        /** Editable table
+        ------------------------- */
+
+        .editable-table > tbody > tr > td {
+            padding: 4px;
+        }
+
+        .editable-text {
+            padding-left: 4px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            display: inline-block;
+        }
+
+
+        .editable-input {
+            padding-left: 3px;
+        }
+
+            .editable-input.input-sm {
+                height: 30px;
+                font-size: 14px;
+                padding-top: 4px;
+                padding-bottom: 4px;
+            }
+
+        .header {
+            cursor: move;
+        }
+    </style>
+    <link href="css/font-awesome.css" rel="stylesheet" />
+</head>
+<body>
+    
+    <div class="container-fluid" ng-controller="ngtableCtrl" ng-app="ngTableTutorial">
+        <h2>AngularJS ng-table Pagination Example</h2>
+        <script type="text/ng-template" id="headerCheckbox.html">
+            <input type="checkbox" ng-model="model.selectAll" class="select-all" value="" ng-change="selectAllcheck(model.selectAll)" />
+        </script>
+        <table ng-table="usersTable" class="table" show-filter="true" id="table2">
+            <tr ng-repeat="user in data">
+                <td header="'headerCheckbox.html'">
+                    <input type="checkbox" ng-model="user.isChecked" ng-change="selectEntity()"/>
+                </td>
+                <td title="'Name'" filter="{ name: 'text'}" sortable="'name'">
+                    {{user.name}}
+                </td>
+                <td title="'Age'" filter="{ age: 'text'}" sortable="'age'">
+                    {{user.age}}
+                </td>
+            </tr>
+        </table>
+        <table ng-table="usersTable" class="table table-striped" id="table1">
+            <tr>
+                <td>Select</td>
+                <td>
+                    <a href="#" ng-click="sortType = 'name'; sortReverse = !sortReverse">
+                        Name
+                        <span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                </td>
+                <td>
+                    <a href="#" ng-click="sortType = 'age'; sortReverse = !sortReverse">
+                        Age
+                        <span ng-show="sortType == 'age' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'age' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                </td>
+                <td>
+                    <a href="#" ng-click="sortType = 'location'; sortReverse = !sortReverse">
+                        Location
+                        <span ng-show="sortType == 'location' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'location' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" ng-model="model.selectAll" ng-change="selectAllcheck(model.selectAll)" id="selectall" />
+                </td>
+                <td>
+                    <input ng-model="searchtxt.name" type="text" placeholder="Enter Only Name" />
+                </td>
+                <td>
+                    <input ng-model="searchtxt.age" type="text" placeholder="Enter Only Name" />
+                </td>
+                <td>
+                    <input ng-model="searchtxt.location" type="text" placeholder="Enter Only Name" />
+                </td>
+            </tr>
+            <tr ng-repeat="user in data | filter:searchtxt | orderBy:sortType:sortReverse" ng-include="getTemplate(user)"></tr>
+        </table>
+
+        <script type="text/ng-template" id="display">
+            <td><input type="checkbox" ng-model="user.isChecked" ng-change="selectEntity()" /></td>
+            <td>{{user.name}}</td>
+            <td>{{user.age}}</td>
+            <td>{{user.location}}</td>
+            <td ng-show="user.editmode">
+                <button ng-click="editContact(user)" class="btn btn-primary">Edit</button>
+            </td>
+            <td ng-show="user.editmode">
+                <button ng-click="deleteContact($index)" class="btn btn-danger">Delete</button>
+            </td>
+        </script>
+        <script type="text/ng-template" id="edit">
+            <td></td>
+            <td><input type="text" ng-model="model.selected.name" /></td>
+            <td><input type="text" ng-model="model.selected.age" /></td>
+            <td><input type="text" ng-model="model.selected.location" /></td>
+            <td>
+                <button ng-click="saveContact($index)" class="btn btn-primary">Save</button>
+                <button ng-click="reset()" class="btn btn-danger">Cancel</button>
+            </td>
+        </script>
+        <script type="text/ng-template" id="myModalContent.html">
+            <div class="modal-header">
+                <h3 class="modal-title">I'm a modal!</h3>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <label>Name:</label>
+                    <input type="text" ng-model="user.name" placeholder="Name">
+                </div>
+                <div>
+                    <label>Age:</label>
+                    <input type="text" ng-model="user.age" placeholder="Age">
+                </div>
+                <div>
+                    <label>Location:</label>
+                    <input type="text" ng-model="user.location" placeholder="Location">
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-primary" ng-click="ok()">OK</button>
+                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+
+        <button type="button" class="btn btn-primary" ng-click="open()">Open me!</button>
+        <div>Username: {{username.name}}</div>
+        <div>Age: {{username.age}}</div>
+        <div>Location: {{username.location}}</div>
+        <div><button type="button" class="btn btn-primary" ng-click="deleteSelectedCheckContact()" ng-show="deleteAllMode">Delete All</button></div>
+    </div>
+</body>
+</html>

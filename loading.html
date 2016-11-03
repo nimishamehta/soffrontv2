@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <style>
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+        }
+
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <title></title>
+    <meta charset="utf-8" />
+    <link href="Content/bootstrap-theme.css" rel="stylesheet" />
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <script src="Scripts/angular.js"></script>
+    <script type="text/javascript">
+        var myApp = angular.module('myApp', []);
+        myApp.directive('loading', function () {
+            return {
+                template: "<div class='loader'></div>",
+                replace: true
+            };
+        });
+    </script>
+
+</head>
+<body>
+    <h2>How To Create A Loader</h2>
+    <p>
+        <strong>Note:</strong>
+        The -webkit- and -ms- prefixes are for browsers that do not support animation and transform properties.
+    </p>
+    <h1 loading></h1>
+</body>
+</html>

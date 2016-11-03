@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <script src="Scripts/jquery-1.12.4.min.js"></script>
+    <script src="Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/angular.js"></script>
+    <script src="Scripts/angular-animate.min.js"></script>
+    <script src="Scripts/ng-file-upload-shim.js"></script>
+    <script src="Scripts/ng-file-upload.js"></script>
+    <script src="app/resources/js/fileupload.js"></script>
+</head>
+<body ng-app="myApp">
+    <div ng-controller="UploadCtrl">
+        <input type="file" ng-file-select="onFileSelect($files)" multiple>
+    </div>
+</body>
+</html>

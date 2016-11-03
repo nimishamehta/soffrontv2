@@ -1,0 +1,299 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../../Scripts/angular.js"></script>
+    <script src="../../Scripts/angular-sanitize.js"></script>
+    <script src="../../Scripts/jquery-1.12.4.min.js"></script>
+    <script src="../../Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="../../Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+    <script src="../../Scripts/bootstrap.min.js"></script>
+    <link href="../../Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../css/dragtable.css" rel="stylesheet" />
+    <!--<link rel="stylesheet" type="text/css" href="http://akottr.github.io/css/reset.css" />-->
+    <link rel="stylesheet" type="text/css" href="http://akottr.github.io/css/akottr.css" />
+
+    <script src="../../Scripts/ng-table.min.js"></script>
+    <link href="../../Content/ng-table.min.css" rel="stylesheet" />
+    <script src="../../Scripts/angular-animate.min.js"></script>
+    <script src="../../app/resources/js/AngularTableFinal1.js"></script>
+    <script src="../../Scripts/Sortable/jquery.dragtable.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#table2').dragtable();
+            $('#table1').dragtable();
+            $('#table1 th').each(function () {
+                $(this).html(":::::");
+            });
+        });
+    </script>
+    <style type="text/css">
+        .demoTable td:last-child {
+            min-width: 90px;
+        }
+
+        /** Editable table
+        ------------------------- */
+
+        .editable-table > tbody > tr > td {
+            padding: 4px;
+        }
+
+        .editable-text {
+            padding-left: 4px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            display: inline-block;
+        }
+
+
+        .editable-input {
+            padding-left: 3px;
+        }
+
+            .editable-input.input-sm {
+                height: 30px;
+                font-size: 14px;
+                padding-top: 4px;
+                padding-bottom: 4px;
+            }
+
+        .header {
+            cursor: move;
+        }
+    </style>
+    <link href="../../css/font-awesome.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="container-fluid" ng-controller="ngtableCtrl" ng-app="ngTableTutorial">
+        <h2>Calendar --> All Appointmnets</h2>
+
+        <table ng-table="usersTable" class="table table-striped" id="table1">
+            <tr>
+                <td>Select</td>
+                <td>
+                    <a href="#" ng-click="sortType = 'subject'; sortReverse = !sortReverse">
+                        Subject
+                        <span ng-show="sortType == 'subject' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'subject' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                </td>
+                <td>
+                    <a href="#" ng-click="sortType = 'assignto'; sortReverse = !sortReverse">
+                        Assign to
+                        <span ng-show="sortType == 'assignto' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'assignto' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                </td>
+                <td>
+                    <a href="#" ng-click="sortType = 'company'; sortReverse = !sortReverse">
+                        Company
+                        <span ng-show="sortType == 'company' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'company' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                </td>
+                <td>
+                    <a href="#" ng-click="sortType = 'startdate'; sortReverse = !sortReverse">
+                        Start date
+                        <span ng-show="sortType == 'startdate' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'startdate' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                </td>
+                <td>
+                    <a href="#" ng-click="sortType = 'enddate'; sortReverse = !sortReverse">
+                        End date
+                        <span ng-show="sortType == 'enddate' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'enddate' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                </td>
+                <!--<td>
+                    <a href="#" ng-click="sortType = 'age'; sortReverse = !sortReverse">
+                        Age
+                        <span ng-show="sortType == 'age' && !sortReverse" class="fa fa-caret-down"></span>
+                        <span ng-show="sortType == 'age' && sortReverse" class="fa fa-caret-up"></span>
+                    </a>
+                </td>-->
+
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" ng-model="model.selectAll" ng-change="selectAllcheck(model.selectAll)" id="selectall" />
+                </td>
+                <td>
+                    <input ng-model="searchtxt.subject" type="text" placeholder="Enter Only Name" />
+                </td>
+                <td>
+                    <input ng-model="searchtxt.assignto" type="text" placeholder="Enter Only Name" />
+                </td>
+                <td>
+                    <input ng-model="searchtxt.company" type="text" placeholder="Enter Only Name" />
+                </td>
+                <td>
+                    <input ng-model="searchtxt.startdate" type="text" placeholder="Enter Only Name" />
+                </td>
+                <td>
+                    <input ng-model="searchtxt.enddate" type="text" placeholder="Enter Only Name" />
+                </td>
+                <!--<td>
+                    <input ng-model="searchtxt.age" type="text" placeholder="Enter Only Name" />
+                </td>-->
+
+            </tr>
+            <tr ng-repeat="user in data | filter:searchtxt | orderBy:sortType:sortReverse" ng-include="getTemplate(user)"></tr>
+        </table>
+
+        <script type="text/ng-template" id="display">
+            <td><input type="checkbox" ng-model="user.isChecked" ng-change="selectEntity()" /></td>
+            <td>{{user.subject}}</td>
+            <td>{{user.assignto}}</td>
+            <td>{{user.company}}</td>
+            <td>{{user.startdate}}</td>
+            <td>{{user.enddate}}</td>
+            <!--<td>{{user.age}}</td>-->
+            <td ng-show="user.editmode">
+                <button ng-click="editContact(user)" class="btn btn-primary">Edit</button>
+            </td>
+            <td ng-show="user.editmode">
+                <button ng-click="deleteContact($index)" class="btn btn-danger">Delete</button>
+            </td>
+        </script>
+        <script type="text/ng-template" id="edit">
+            <td></td>
+            <td><input type="text" ng-model="model.selected.name" /></td>
+            <td><input type="text" ng-model="model.selected.age" /></td>
+            <td><input type="text" ng-model="model.selected.location" /></td>
+            <td>
+                <button ng-click="saveContact($index)" class="btn btn-primary">Save</button>
+                <button ng-click="reset()" class="btn btn-danger">Cancel</button>
+            </td>
+        </script>
+        <script type="text/ng-template" id="myModalContent.html">
+            <div class="modal-header">
+                <h3 class="modal-title">I'm a modal!</h3>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <label>Subject</label>
+                    <input type="text" ng-model="user.subject" placeholder="Subject">
+                </div>
+                <div>
+                    <label>Start date</label>
+                    <input type="text" ng-model="user.startdate" placeholder="Start date">
+                </div>
+                <div>
+                    <label>End date</label>
+                    <input type="text" ng-model="user.enddate" placeholder="End date">
+                </div>
+                <div>
+                    <label>Status</label>
+                    <select ng-model="user.status" ng-options="x for x in status"></select>
+                </div>
+                <div>
+                    <label>Assign to</label>
+                    <select ng-model="user.assignto" ng-options="x for x in assignto"></select>
+                </div>
+                <div>
+                    <label>Reminder</label>
+                    <div id="reminders"></div>
+                    <input type="text" ng-model="user.reminder" placeholder="Reminder">
+                </div>
+
+                <div class="additionPanel" id="myform">
+
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3" style="padding: 5px">
+                            <div class="form-group">
+                                <select ng-model="user.assignto" ng-options="x for x in assignto" class="form"></select>
+                            </div>
+                        </div>
+                       
+                        <div class="col-md-2 col-sm-2" style="padding: 5px">
+                            <div class="form-group">
+                                <input type="text" class="reminderduration form-control" />
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-md-1 col-sm-1" style="margin-top: 5px;">
+                            <button class="btn btn-primary btn-icon btn-icon-standalone btn-sm" onclick="AddElement(); return false;">
+                                <i class="fa fa-plus" style="padding: 10px 10px"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div>
+                    <label>Company</label>
+                    <input type="text" ng-model="user.company" placeholder="Company">
+                </div>
+                <div>
+                    <label>Full Name</label>
+                    <input type="text" ng-model="user.fullname" placeholder="Full Name">
+                </div>
+                <div>
+                    <label>Text</label>
+                    <input type="text" ng-model="user.text" placeholder="Text">
+                </div>
+                <div>
+                    <label>Repeat</label>
+                    <input type="checkbox" ng-model="user.repeat" ng-click="checkRepeat()">
+                </div>
+                <div>
+                    <label>Outlook Sync</label>
+                    <input type="text" ng-model="user.outlooksync" placeholder="Outlook Sync">
+                </div>
+                <div>
+                    <label>Google Sync</label>
+                    <input type="text" ng-model="user.googlesync" placeholder="Google Sync">
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-primary" ng-click="ok()">Save</button>
+                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+        <script id="myModalReminder.html" type="text/ng-template">
+            <div class="modal-header">
+                <h3 class="modal-title">Repeat</h3>
+            </div>
+            <div class="modal-body">
+
+                <div>
+                    <label>Start date</label>
+                    <input type="text" ng-model="reminderRepeat.startdate" placeholder="Start date">
+                </div>
+                <div>
+                    <label>End date</label>
+                    <input type="text" ng-model="reminderRepeat.enddate" placeholder="End date">
+                </div>
+                <div>
+                    <label>Repeat type</label>
+                    <select ng-model="reminderRepeat.repeattype" ng-options="x for x in repeattype"></select>
+                </div>
+                <div>
+                    <label>Repeat every</label>
+                    <select ng-model="reminderRepeat.repeatevery" ng-options="x for x in [] | range:1:30"></select>days
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-primary" ng-click="ok()">Save</button>
+                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+        <button type="button" class="btn btn-primary" ng-click="open()">Add +</button>
+        <div>Username: {{username.name}}</div>
+        <div>Age: {{username.age}}</div>
+        <div>Location: {{username.location}}</div>
+        <div><button type="button" class="btn btn-primary" ng-click="deleteSelectedCheckContact()" ng-show="deleteAllMode">Delete All</button></div>
+    </div>
+</body>
+</html>

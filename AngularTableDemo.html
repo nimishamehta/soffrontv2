@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="Scripts/jquery-1.9.1.min.js"></script>
+    <script src="Scripts/angular.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="Scripts/ng-table.min.js"></script>
+    <link href="Content/ng-table.min.css" rel="stylesheet" />
+    <script src="app/resources/js/app.js"></script>
+    <script src="app/resources/js/CommonFunctions.js"></script>
+</head>
+<body>
+    <div ng-controller="tableController" ng-app="ngTableTutorial">
+        
+        <table ng-table="usersTable" class="table table-striped" show-filter="true">
+            <tr ng-repeat="user in data">
+                <td data-title="'Id'" sortable="'id'">
+                    {{user.id}}
+                </td>
+                <td data-title="'First Name'" sortable="'first_name'" filter="{ 'first_name': 'text' }">
+                    {{user.first_name}}
+                </td>
+                
+                <td data-title="'Last Name'" sortable="'last_name'" filter="{ 'last_name': 'text' }">
+                    {{user.last_name}}
+                </td>
+                <td data-title="'e-mail'" sortable="'email'" filter="{ 'email': 'text' }">
+                    {{user.email}}
+                </td>
+                <td data-title="'Country'" sortable="'country'" filter="{ 'country': 'text' }">
+                    {{user.country}}
+                </td>
+                <td data-title="'IP'" sortable="'ip_address'" filter="{ 'ip_address': 'text' }">
+                    {{user.ip_address}}
+                </td>
+                <td>
+                    <a href="#" ng-click="deleteItem($index)">X</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
