@@ -169,6 +169,11 @@ myapp.controller('ngtableCtrl', function ($scope, NgTableParams, $filter, $uibMo
         $scope.getData();
     }
 
+    $scope.sort = function (keyname) {
+        $scope.sortKey = keyname;   //set the sortKey to the param passed
+        $scope.reverse = !$scope.reverse; //if true make it false and vice versa
+    }
+
     $scope.deleteSelectedCheckContact = function () {
         console.log('inside deleteSelectedCheckContact function');
         console.log($scope.model.contacts);
@@ -256,14 +261,16 @@ myapp.controller('ModalInstanceCtrl', function ($uibModalInstance, $scope, usern
     alert(username);
     $scope.status = ["Cancelled", "Completed", "Scheduled"];
     $scope.assignto = ["Ravi Teja Villa"];
+    $scope.remindertype = ["Email", "Pop-up"];
+    $scope.remindertimein = ["minutes", "hours", "days", "weeks"];
     $scope.user = {
         subject: "",
         startdate: "",
         enddate: "",
         status: "",
         assignto: "",
-        //reminder: [{type:'',duration:'',timein:''}],
-        reminder: "",
+        reminder: [{ type: '', duration: '', timein: '' }, { type: '', duration: '', timein: '' }],
+        //reminder: "",
         company: "",
         fullname: "",
         text: "",
@@ -325,6 +332,15 @@ myapp.controller('ModalInstanceCtrl', function ($uibModalInstance, $scope, usern
         else {
 
         }
+    }
+
+    $scope.deleteReminder = function (val) {
+        alert('inside delete reminder function' + val);
+        $scope.user.reminder.splice(val, 1);
+    }
+
+    $scope.addReminder = function () {
+        $scope.user.reminder.push({ type: '', duration: '', timein: '' });
     }
 });
 

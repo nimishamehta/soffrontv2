@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngTableTutorial">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../../Scripts/moment.js"></script>
+    <script src="../../Scripts/jquery-1.12.4.min.js"></script>
+    <script src="../../Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="../../Scripts/angular.js"></script>
+    <script src="../../Scripts/angular-ui.min.js"></script>
+    <script src="../../Scripts/angular-sanitize.js"></script>
+    <script src="../../Scripts/datetimepicker.js"></script>
+    <script src="../../Scripts/datetimepicker.templates.js"></script>
+    <script src="../../Scripts/calendar.js"></script>
+    <script src="../../Scripts/fullcalendar.js"></script>
+    <script src="../../Scripts/gcal.js"></script>
+    <script src="../../Scripts/dirPagination.js"></script>
+
+    <script src="../../Scripts/Sortable/sortable.js"></script>
+    <script src="../../Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.0.0/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+
+    <script src="../../Scripts/bootstrap.min.js"></script>
+    <link href="../../css/Calendar/fullcalendar.css" rel="stylesheet" />
+    <link href="../../Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    <link href="../../css/dragtable.css" rel="stylesheet" />
+    <!--<link rel="stylesheet" type="text/css" href="http://akottr.github.io/css/reset.css" />-->
+    <link rel="stylesheet" type="text/css" href="http://akottr.github.io/css/akottr.css" />
+
+    <script src="../../Scripts/ng-table.min.js"></script>
+    <script src="../../node_modules/ui-select/dist/select.js"></script>
+    <link href="../../node_modules/ui-select/dist/select.css" rel="stylesheet" />
+    <link href="../../Content/css/select2.css" rel="stylesheet" />
+    <link href="../../Content/Selectize/css/selectize.css" rel="stylesheet" />
+    <link href="../../Content/ng-table.min.css" rel="stylesheet" />
+    <link href="../../Content/datetimepicker.css" rel="stylesheet" />
+    <script src="../../Scripts/angular-animate.min.js"></script>
+    <script src="../../app/resources/js/CalendarEventScheduling.js"></script>
+    <script src="../../Scripts/Sortable/jquery.dragtable.js"></script>
+
+    <style>
+        .thumbnail1 {
+            float: left;
+            /*width: 60px;*/
+            margin-top: 3px;
+            margin-bottom: 3px;
+        }
+    </style>
+    <script>
+       
+
+    </script>
+</head>
+<body ng-controller="ngtableCtrl" ng-cloak>
+    <!--Angular template for modal dialog code structure starts here-->
+    <script type="text/ng-template" id="modalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Events</h3>
+        </div>
+        <div class="modal-body">
+            <div style="color:red">{{Message}}</div>
+            <div class="form-group">
+                <label>Event Title : </label>
+                <input type="text" ng-model="NewEvent.Title" autofocus class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Description : </label>
+                <input type="text" ng-model="NewEvent.Description" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Time Slot : </label>
+
+                <span>{{NewEvent.StartAt}} - {{NewEvent.EndAt}}</span>
+            </div>
+            <div>
+                <!--datetime picker start-->
+                <div class="well">
+
+                    <p>Formatted Date: {{ data.dateDropDownInput | date:'medium' }}</p>
+
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#"
+                           href="#">
+                            <div class="input-group">
+                                <input type="text" class="form-control" data-ng-model="data.dateDropDownInput"
+                                       date-format="yyyy-MM-dd HH:mm:ss">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <datetimepicker data-ng-model="data.dateDropDownInput" date-format="yyyy-MM-dd" 
+                                            data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"></datetimepicker>
+                        </ul>
+                    </div>
+                </div>
+                <!--datetime picker end-->
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">Save</button>
+            <button class="btn btn-danger" type="button" ng-show="NewEvent.EventID > 0" ng-click="delete()">Delete</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+        <!--Angular modal dialog code ends here-->
+    </script>
+    <div class="row">
+        <div class="col-md-12">
+            <!--this element displays the UI-caledar-->
+            <div id="calendar" ui-calendar="uiConfig.calendar" ng-model="eventSources" calendar="myCalendar"></div>
+        </div>
+    </div>
+</body>
+</html>

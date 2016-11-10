@@ -1,0 +1,544 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <link href="https://srv1.snapshotcrm.com:443/theme/blue/css/main.css?v=1.1.14" type="text/css" rel="stylesheet">
+    <link href="https://srv1.snapshotcrm.com:443/theme/blue/css/jquery.alerts.css?v=1.1.14" type="text/css" rel="stylesheet">
+
+    <style type="text/css">
+        img#logoImg {
+        }
+
+        .hp_box {
+            background-color: transparent !important;
+        }
+    </style>
+
+</head>
+<body>
+    <!--header start-->
+    <div id="header">
+        <div class="header_top">
+
+            <form name="quickSearchForm" method="post" action="javascript:void(0);">
+                <input type="hidden" id="TABLE_ID" name="TABLE_ID" value="10">
+                <input type="hidden" id="TABLE_NAME" name="TABLE_NAME" value="Accounts">
+                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tbody>
+                        <tr>
+                            <td valign="top" width="200" style="padding:8px 0 0 10px;">
+                                <table cellpadding="0" cellspacing="0" border="0">
+                                    <tbody>
+                                        <tr>
+                                            <td height="40" id="origDiv">
+                                                <a style="text-decoration: none" href="http://www.soffront.com/" target="_blank">
+                                                    <img border="0" id="logoImg" src="https://srv1.snapshotcrm.com:443/theme/blue/images/NewDesign/soffront_logo.png" style="padding-left: 0px; float: left; padding-top: 15px; max-width: 130px; max-height: 40px; width: 130px; height: 26px;">
+                                                </a>
+                                            </td>
+
+                                            <td height="40" valign="middle">
+                                                <div class="powered_by" style="margin-top:7px;">Powered&nbsp;by <br><a class="ssblack" style="text-decoration: none" href="http://www.soffront.com/" target="_blank">sof<span>front</span></a></div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td align="center" valign="top" class="top-padding1">
+                                <table style="width:100%">
+                                    <tbody>
+                                        <tr>
+                                            <td width="15%" align="right" class="top_text" style="padding-right:5px; font-weight: bold;" id="objectValueStr">&nbsp;Accounts</td>
+                                            <td height="27" width="45%">
+                                                <div class="textbox_area">
+                                                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td width="16" style="padding-top:2px;">
+                                                                    <ul id="nav2">
+                                                                        <li>
+                                                                            <div align="right" class="top_text">
+                                                                                <a href="javascript:void(0);" id="trigger" style="outline: none;">
+                                                                                    <img src="https://srv1.snapshotcrm.com:443/theme/blue/images/NewDesign/img_down_arrow.png" border="0" class="img_margin">
+                                                                                </a>
+                                                                            </div>
+
+                                                                            <input type="hidden" id="ALL_TABLE_IDS" name="ALL_TABLE_IDS" value="10,9,2,13,4,424,315">
+                                                                            <div class="balance"></div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                                <td style="padding-top:0px;"><input name="formCondition" type="text" class="textbox_bg" id="formCondition" placeholder=" Type a keyword and press enter"></td>
+                                                                <td align="right" width="20" style="padding-top:4px"><img src="https://srv1.snapshotcrm.com:443/theme/blue/images/NewDesign/icon_magnifying.png" border="0" style="cursor: pointer;" title="Find"></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </td>
+                                            <td width="13%" id="advSearch" style="padding-left:0px; font-weight: bold;" class="top_text" align="left"><span id="advSpan"><a href="javascript:void(0)" style="font-weight:bold;">Advanced</a></span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td align="right" width="280" valign="top" class="top-padding2">
+                                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                    <tbody>
+                                        <tr>
+                                            <td width="110" valign="top" align="left">
+                                                <div id="featureBox" class="newFeatureBox" style="">
+                                                    <table cellpadding="0" cellspacing="0" border="0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><a href="javascript:void(0);">What's new</a></td>
+                                                                <td>
+                                                                    <div class="newFeatureBox_close"><img src="https://srv1.snapshotcrm.com:443/theme/blue/images/NewDesign/close_button_datetime.png" border="0" alt="Close" title="Close"></div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </td>
+
+                                            <td class="top_text" width="20" valign="top" align="left">
+                                                <input class="soffront_guider" type="button" id="soffrontGuider" title="Quick Tour" guiderid="1" style="cursor: pointer; visibility: visible;">
+                                            </td>
+
+                                            <td class="top_text" width="50" align="center" valign="top">
+                                                <a href="http://soffront.com/help/" target="_blank" style="letter-spacing: -1pt;">
+                                                    <strong>Help</strong>
+                                                </a>
+                                            </td>
+                                            <td align="right" width="100" valign="top">
+                                                <ul id="nav2">
+                                                    <li>
+                                                        <div align="right" class="top_text">
+                                                            <div id="setTrigger" title="ravi@inflexonpoint.com" style="cursor: pointer;">
+                                                                <table cellpadding="0" cellspacing="0" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td align="right" width="98%" valign="top">
+                                                                                <div style="overflow: hidden; width: 100px; text-overflow: ellipsis; white-space: pre;">Ravi Teja Villa</div>
+                                                                            </td>
+                                                                            <td align="left" width="2%" valign="top"><img src="https://srv1.snapshotcrm.com:443/theme/blue/images/NewDesign/img_down_arrow.png" border="0" class="img_margin"></td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </form>
+
+            <div class="hvr-bounce-to-left">
+                <a href="http://soffront.com/help/contact-support/" target="_blank">
+                    <p class="new-label"><span>?</span></p>
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <!--header end-->
+    <!-- body content start -->
+    <div class="container" style="height: 100%;margin: 30px 0px 0px;padding: 0px;">
+        <div class="hp_box">
+
+            <table cellpadding="0" cellspacing="0" width="100%" border="0" style="margin-top:100px;">
+                <tbody>
+                    <tr>
+                        <td valign="top" width="24.9%">
+                            <div class="column">
+                                <div align="center">
+                                    <img src="https://srv1.snapshotcrm.com:443/theme/blue/images/NewDesign/icon_marketing.png" border="0" id="imgIcon_2" title="Customize" class="imgIcon" style="cursor: pointer; opacity: 1;">
+                                </div><div class="heading">
+                                    <table cellpadding="0" cellspacing="0" width="100%" border="0" id="headingTable_2">
+                                        <tbody>
+                                            <tr>
+                                                <td id="td_2" width="90%">Marketing</td>
+                                                <td id="tdAdd2" class="tdWithAddBtn" style="display: none;"><div>
+                                                    <img src="https://srv1.snapshotcrm.com:443/theme/blue/images/NewDesign/plus_icon_narrow.png" border="0" width="16" height="16" title="Add" id="img_add" homeid="2" homeitem="Marketing"></div></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div><p id="pSelectBox_2" class="pSelectBox" style="display: none; padding-bottom: 0px; margin-bottom: 0px;"></p>
+                                <p id="p_2">
+                                    <div class="menuItemDiv" catid="130536">
+                                        <table cellpadding="0" cellspacing="0" width="100%" border="0" style="white-space: nowrap; table-layout: fixed;" id="table_130536">
+                                            <tbody>
+                                                <tr>
+                                                <td id="r_130536" width="90%" style="overflow: hidden; text-overflow: ellipsis;">
+                                                    <a href="javascript:void(0);" id="MarketingTemplates" title="Marketing Templates" style="line-height:26px;text-decoration:none;color:#2f2f2f;">Marketing Templates<br></a>
+                                                    </td>
+                                                <td width="22px">&nbsp;</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="menuItemDiv" catid="130537">
+                                        <table cellpadding="0" cellspacing="0" width="100%" border="0" style="white-space: nowrap; table-layout: fixed;" id="table_130537">
+                                            <tbody>
+                                                <tr>
+                                                    <td id="r_130537" width="90%" style="overflow: hidden; text-overflow: ellipsis;">
+                                                        <a href="javascript:void(0);" id="WebForms" title="Web Forms" style="line-height:26px;text-decoration:none;color:#2f2f2f;">Web Forms<br></a>
+                                                    </td>
+                                                    <td width="22px">&nbsp;</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div><div class="menuItemDiv" catid="130533">
+                                        <table cellpadding="0" cellspacing="0" width="100%" border="0" style="white-space: nowrap; table-layout: fixed;" id="table_130533">
+                                            <tbody>
+                                                <tr>
+                                                    <td id="r_130533" width="90%" style="overflow: hidden; text-overflow: ellipsis;">
+                                                        <a href="javascript:void(0);" id="Contacts" title="Contacts" style="line-height:26px;text-decoration:none;color:#2f2f2f;">Contacts
+                                                        <br>
+                                                        </a>
+                                                    </td>
+                                                    <td width="22px">&nbsp;</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="menuItemDiv" catid="130562">
+                                        <table cellpadding="0" cellspacing="0" width="100%" border="0" style="white-space: nowrap; table-layout: fixed;" id="table_130562">
+                                            <tbody>
+                                                <tr>
+                                                    <td id="r_130562" width="90%" style="overflow: hidden; text-overflow: ellipsis;">
+                                                    <a href="javascript:void(0);" id="AutomationDesigner" title="Automation Designer" style="line-height:26px;text-decoration:none;color:#2f2f2f;">Automation Designer<br></a></td>
+                                                    <td width="22px">&nbsp;</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="menuItemDiv" catid="130523">
+                                        <table cellpadding="0" cellspacing="0" width="100%" border="0" style="white-space: nowrap; table-layout: fixed;" id="table_130523">
+                                            <tbody>
+                                                <tr>
+                                                    <td id="r_130523" width="90%" style="overflow: hidden; text-overflow: ellipsis;">
+                                                        <a href="javascript:void(0);" id="BroadcastCampaigns" title="Broadcast Campaigns" style="line-height:26px;text-decoration:none;color:#2f2f2f;">Broadcast Campaigns<br></a>
+                                                    </td>
+                                                    <td width="22px">&nbsp;</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="menuItemDiv" catid="130560">
+                                        <table cellpadding="0" cellspacing="0" width="100%" border="0" style="white-space: nowrap; table-layout: fixed;" id="table_130560">
+                                            <tbody>
+                                                <tr>
+                                                    <td id="r_130560" width="90%" style="overflow: hidden; text-overflow: ellipsis;"><a href="javascript:void(0);" id="ABCampaigns" title="A/B Campaigns" style="line-height:26px;text-decoration:none;color:#2f2f2f;">A/B Campaigns<br></a></td>
+                                                    <td width="22px">&nbsp;</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="menuItemDiv" catid="130554">
+                                        <table cellpadding="0" cellspacing="0" width="100%" border="0" style="white-space: nowrap; table-layout: fixed;" id="table_130554">
+                                            <tbody>
+                                                <tr>
+                                                    <td id="r_130554" width="90%" style="overflow: hidden; text-overflow: ellipsis;"><a href="javascript:void(0);" id="SocialCampaigns" title="Social Campaigns" style="line-height:26px;text-decoration:none;color:#2f2f2f;">Social Campaigns<br></a></td>
+                                                    <td width="22px">&nbsp;</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="menuItemDiv" catid="130563">
+                                        <table cellpadding="0" cellspacing="0" width="100%" border="0" style="white-space: nowrap; table-layout: fixed;" id="table_130563">
+                                            <tbody>
+                                                <tr>
+                                                    <td id="r_130563" width="90%" style="overflow: hidden; text-overflow: ellipsis;">
+                                                        <a href="javascript:void(0);" id="WebsiteTracking" title="Website Tracking" style="line-height:26px;text-decoration:none;color:#2f2f2f;">Website Tracking<br></a>
+                                                    </td>
+                                                    <td width="22px">&nbsp;</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div><div class="menuItemDiv" catid="130538">
+                                    <table cellpadding="0" cellspacing="0" width="100%" border="0" style="white-space: nowrap; table-layout: fixed;" id="table_130538">
+                                        <tbody>
+                                            <tr>
+                                        <td id="r_130538" width="90%" style="overflow: hidden; text-overflow: ellipsis;">
+                                            <a href="javascript:void(0);" id="MarketingReports" title="Reports" style="line-height:26px;text-decoration:none;color:#2f2f2f;">Reports<br></a>
+                                    </td>
+                                    <td width="22px">&nbsp;</td>
+                                    </tr>
+                                    </tbody>
+                                    </table>
+                                    </div>
+                                </p>
+                            </div>
+                        </td>
+                        <td class="divider" width="1"></td>
+                        <td valign="top" width="24.9%">
+                            <div class="column">
+                                <div align="center">
+                                    <img src="https://srv1.snapshotcrm.com:443/theme/blue/images/NewDesign/icon_sales.png" border="0" id="imgIcon_1" title="Customize" class="imgIcon" style="cursor: pointer; opacity: 1;">
+                                </div><div class="heading">
+                                    <table cellpadding="0" cellspacing="0" width="100%" border="0" id="headingTable_1">
+                                        <tbody>
+                                            <tr>
+                                                <td id="td_1" width="90%">Sales</td>
+                                                <td id="tdAdd1" class="tdWithAddBtn" style="display: none;">
+                                                    <div>
+                                                        <img src="https://srv1.snapshotcrm.com:443/theme/blue/images/NewDesign/plus_icon_narrow.png" border="0" width="16" height="16" title="Add" id="img_add" homeid="1" homeitem="Sales">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div><p id="pSelectBox_1" class="pSelectBox" style="display: none; padding-bottom: 0px; margin-bottom: 0px;"></p><p id="p_1">
+                                    <div class="menuItemDiv" catid="130547">
+                                        <table cellpadding="0" cellspacing="0" width="100%" border="0" style="white-space: nowrap; table-layout: fixed;" id="table_130547">
+                                            <tbody>
+                                                <tr>
+                                                    <td id="r_130547" width="90%" style="overflow: hidden; text-overflow: ellipsis;">
+                                                        <a href="javascript:void(0);" id="SalesTemplates" title="Sales Templates" style="line-height:26px;text-decoration:none;color:#2f2f2f;">Sales Templates<br></a>
+                                                    </td>
+                                                    <td width="22px">&nbsp;</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="menuItemDiv" catid="130531">
+                                        <table cellpadding="0" cellspacing="0" width="100%" border="0" style="white-space: nowrap; table-layout: fixed;" id="table_130531">
+                                            <tbody>
+                                                <tr>
+                                                    <td id="r_130531" width="90%" style="overflow: hidden; text-overflow: ellipsis;">
+                                                        <a href="javascript:void(0);" id="CalendarTasks" title="Calendar/Tasks" style="line-height:26px;text-decoration:none;color:#2f2f2f;">Calendar/Tasks</a>
+                                                    </td>
+                                                    <td width="22px">&nbsp;</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div><div class="menuItemDiv" catid="130519">
+                                        <table cellpadding="0" cellspacing="0" width="100%" border="0" style="white-space: nowrap; table-layout: fixed;" id="table_130519">
+                                            <tbody>
+                                                <tr>
+                                                    <td id="r_130519" width="90%" style="overflow: hidden; text-overflow: ellipsis;">
+                                                        <a href="javascript:void(0);" id="Accounts" title="Accounts" style="line-height:26px;text-decoration:none;color:#2f2f2f;">Accounts<br></a>
+                                                    </td>
+                                                    <td width="22px">&nbsp;</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                <div class="menuItemDiv" catid="130534">
+                                    <table cellpadding="0" cellspacing="0" width="100%" border="0" style="white-space: nowrap; table-layout: fixed;" id="table_130534">
+                                <tbody>
+                                <tr>
+                                <td id="r_130534" width="90%" style="overflow: hidden; text-overflow: ellipsis;">
+                                    <a href="javascript:void(0);" id="Opportunities" title="Opportunities" style="line-height:26px;text-decoration:none;color:#2f2f2f;">Opportunities<br></a>
+                                    </td>
+                                <td width="22px">&nbsp;</td></tr>
+                                </tbody>
+                                </table>
+                                </div>
+                                <div class="menuItemDiv" catid="130535">
+                                <table cellpadding="0" cellspacing="0" width="100%" border="0" style="white-space: nowrap; table-layout: fixed;" id="table_130535">
+                                    <tbody>
+                                    <tr>
+                                        <td id="r_130535" width="90%" style="overflow: hidden; text-overflow: ellipsis;">
+                                        <a href="javascript:void(0);" id="SalesReports" title="Reports" style="line-height:26px;text-decoration:none;color:#2f2f2f;">Reports<br></a>
+                                        </td>
+                                        <td width="22px">&nbsp;</td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
+                                </div>
+                                </p>
+                            </div>
+                        </td>
+                        <td class="divider" width="1"></td>
+                        <td valign="top" width="24.9%">
+                        <div class="column">
+                            <div align="center">
+                            <img src="https://srv1.snapshotcrm.com:443/theme/blue/images/NewDesign/icon_services.png" border="0" id="imgIcon_3" title="Customize" class="imgIcon" style="cursor: pointer; opacity: 1;">
+                            </div>
+                            <div class="heading">
+                            <table cellpadding="0" cellspacing="0" width="100%" border="0" id="headingTable_3">
+                                <tbody><tr>
+                                    <td id="td_3" width="90%">Service</td>
+                                <td id="tdAdd3" class="tdWithAddBtn" style="display: none;"><div>
+                                    <img src="https://srv1.snapshotcrm.com:443/theme/blue/images/NewDesign/plus_icon_narrow.png" border="0" width="16" height="16" title="Add" id="img_add" homeid="3" homeitem="Service"></div>
+                                </td>
+                                </tr>
+                                </tbody>
+                                </table>
+                            </div><p id="pSelectBox_3" class="pSelectBox" style="display: none; padding-bottom: 0px; margin-bottom: 0px;"></p>
+                            <p id="p_3"><div class="menuItemDiv" catid="130521">
+                                <table cellpadding="0" cellspacing="0" width="100%" border="0" style="white-space: nowrap; table-layout: fixed;" id="table_130521"><tbody>
+                                    <tr><td id="r_130521" width="90%" style="overflow: hidden; text-overflow: ellipsis;"><a href="javascript:void(0);" id="Cases" title="Cases" style="line-height:26px;text-decoration:none;color:#2f2f2f;">Cases<br></a></td><td width="22px">&nbsp;</td></tr>
+                                    </tbody>
+                                </table>
+                                </div>
+                            <div class="menuItemDiv" catid="130539"><table cellpadding="0" cellspacing="0" width="100%" border="0" style="white-space: nowrap; table-layout: fixed;" id="table_130539"><tbody><tr><td id="r_130539" width="90%" style="overflow: hidden; text-overflow: ellipsis;"><a href="javascript:void(0);" id="Solutions" title="Solutions" style="line-height:26px;text-decoration:none;color:#2f2f2f;">Solutions<br></a>
+                                </td>
+                                <td width="22px">&nbsp;</td>
+                                </tr>
+                                </tbody>
+                                </table>
+                                </div>
+                            <div class="menuItemDiv" catid="130549">
+                                <table cellpadding="0" cellspacing="0" width="100%" border="0" style="white-space: nowrap; table-layout: fixed;" id="table_130549">
+                                <tbody>
+                                    <tr>
+                                    <td id="r_130549" width="90%" style="overflow: hidden; text-overflow: ellipsis;"><a href="javascript:void(0);" id="Projects" title="Projects">Projects<br></a>
+                                        </td>
+                                    <td width="22px">&nbsp;</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                </div>
+                            <div class="menuItemDiv" catid="130550">
+                                <table cellpadding="0" cellspacing="0" border="0" style="width:100%;white-space: nowrap; table-layout: fixed;" id="table_130550">
+                                <tbody>
+                                    <tr>
+                                    <td id="r_130550" width="90%" style="overflow: hidden; text-overflow: ellipsis;">
+                                        <a href="javascript:void(0);" id="Issues" title="Issues" style="line-height:26px;text-decoration:none;color:#2f2f2f;">Issues<br></a>
+                                        </td>
+                                    <td width="22px">&nbsp;</td>
+                                    </tr></tbody>
+                                </table>
+                                </div>
+                            <div class="menuItemDiv" catid="130545">
+                                <table cellpadding="0" cellspacing="0" width="100%" border="0" style="white-space: nowrap; table-layout: fixed;" id="table_130545">
+                                <tbody>
+                                    <tr>
+                                    <td id="r_130545" width="90%" style="overflow: hidden; text-overflow: ellipsis;">
+                                        <a href="javascript:void(0);" id="ServiceReports" title="Reports">Reports<br>
+                                        </a>
+                                        </td>
+                                    <td width="22px">&nbsp;</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                </div>
+                            </p>
+                            </div>
+                        </td>
+                        <td class="divider" width="1"></td>
+                        <td valign="top" width="24.9%">
+                        <div class="column">
+                            <div align="center">
+                            <img src="https://srv1.snapshotcrm.com:443/theme/blue/images/NewDesign/icon_setting.png" border="0" style="cursor: default;"></div>
+                            <div class="heading">
+                            <table cellpadding="0" cellspacing="0" border="0" id="headingTable_4" style="width:100%;">
+                                <tbody>
+                                <tr>
+                                    <td id="td_4" width="90%">Settings</td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                            </div>
+                            <p id="p_4">
+                            <div class="menuItemDiv" catid="130540">
+                                <table cellpadding="0" cellspacing="0" border="0" style="width:100%;white-space: nowrap; table-layout: fixed;" id="table_130540">
+                                <tbody>
+                                    <tr>
+                                    <td id="r_130540" width="90%" style="overflow: hidden; text-overflow: ellipsis;">
+                                        <a href="javascript:void(0);" id="Import" title="Import" style="line-height:26px;text-decoration:none;color:#2f2f2f;">Import<br></a>
+                                        </td>
+                                    <td width="22px">&nbsp;</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                </div>
+                            <div class="menuItemDiv" catid="130541">
+                                <table cellpadding="0" cellspacing="0" border="0" style="width:100%;white-space: nowrap; table-layout: fixed;" id="table_130541">
+                                <tbody>
+                                    <tr>
+                                    <td id="r_130541" width="90%" style="overflow: hidden; text-overflow: ellipsis;">
+                                        <a href="javascript:void(0);" id="Database" title="Database" style="line-height:26px;text-decoration:none;color:#2f2f2f;">Database<br></a>
+                                        </td>
+                                    <td width="22px">&nbsp;</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                </div>
+                            <div class="menuItemDiv" catid="130543">
+                                <table cellpadding="0" cellspacing="0" width="100%" border="0" style="white-space: nowrap; table-layout: fixed;" id="table_130543">
+                                <tbody>
+                                    <tr>
+                                    <td id="r_130543" width="90%" style="overflow: hidden; text-overflow: ellipsis;">
+                                        <a href="javascript:void(0);" id="UserManager" title="Users" style="line-height:26px;text-decoration:none;color:#2f2f2f;">Users<br></a>
+                                        </td>
+                                    <td width="22px">&nbsp;</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                </div>
+                            <div class="menuItemDiv" catid="130542">
+                                <table cellpadding="0" cellspacing="0" border="0" style="width:100%;white-space: nowrap; table-layout: fixed;" id="table_130542">
+                                <tbody>
+                                    <tr>
+                                    <td id="r_130542" width="90%" style="overflow: hidden; text-overflow: ellipsis;">
+                                        <a href="javascript:void(0);" id="Workflows" title="Workflows" style="line-height:26px;text-decoration:none;color:#2f2f2f;">Workflows<br></a>
+                                        </td>
+                                    <td width="22px">&nbsp;</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                </div>
+                            <div class="menuItemDiv" catid="130555">
+                                <table cellpadding="0" cellspacing="0" border="0" style="width:100%;white-space: nowrap; table-layout: fixed;" id="table_130555">
+                                <tbody>
+                                    <tr>
+                                    <td id="r_130555" width="90%" style="overflow: hidden; text-overflow: ellipsis;">
+                                        <a href="javascript:void(0);" id="Filters" title="Filters" style="line-height:26px;text-decoration:none;color:#2f2f2f;">Filters<br></a>
+                                        </td>
+                                    <td width="22px">&nbsp;</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                </div>
+                            <div class="menuItemDiv" catid="130522">
+                                <table cellpadding="0" cellspacing="0" border="0" style="width:100%;white-space: nowrap; table-layout: fixed;" id="table_130522">
+                                <tbody>
+                                    <tr>
+                                    <td id="r_130522" width="90%" style="overflow: hidden; text-overflow: ellipsis;">
+                                        <a href="javascript:void(0);" id="Groups" title="Groups" style="line-height:26px;text-decoration:none;color:#2f2f2f;">Groups<br></a>
+                                        </td>
+                                    <td width="22px">&nbsp;</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                </div>
+                            <div class="menuItemDiv" catid="130548">
+                                <table cellpadding="0" cellspacing="0"  border="0" style="width:100%;white-space: nowrap; table-layout: fixed;" id="table_130548">
+                                <tbody>
+                                    <tr>
+                                    <td id="r_130548" width="90%" style="overflow: hidden; text-overflow: ellipsis;">
+                                        <a href="javascript:void(0);" id="Library" title="Library" style="line-height:26px;text-decoration:none;color:#2f2f2f;">Library<br></a>
+                                        </td>
+                                    <td width="22px">&nbsp;</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                </div>
+                            <div class="menuItemDiv" catid="130544">
+                                <table cellpadding="0" cellspacing="0"  border="0" style="width:100%;white-space: nowrap; table-layout: fixed;" id="table_130544">
+                                <tbody>
+                                    <tr>
+                                    <td id="r_130544" width="90%" style="overflow: hidden; text-overflow: ellipsis;">
+                                        <a href="javascript:void(0);" id="Settings" title="All Settings..." style="line-height:26px;text-decoration:none;color:#2f2f2f;">All Settings...<br></a></td><td width="22px">&nbsp;</td></tr></tbody></table></div></p></div></td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+    <!-- body content end -->
+</body>
+</html>

@@ -1,0 +1,729 @@
+﻿<!DOCTYPE html>
+<html ng-app="ngTableTutorial">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../../Scripts/jquery-1.12.4.min.js"></script>
+    <script src="../../Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="../../Scripts/angular.js"></script>
+    <script src="../../Scripts/angular-ui.min.js"></script>
+    <script src="../../Scripts/angular-sanitize.js"></script>
+    <script src="../../Scripts/dirPagination.js"></script>
+
+    <script src="../../Scripts/Sortable/sortable.js"></script>
+    <script src="../../Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+
+    <script src="../../Scripts/bootstrap.min.js"></script>
+    <link href="../../Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../css/dragtable.css" rel="stylesheet" />
+    <!--<link rel="stylesheet" type="text/css" href="http://akottr.github.io/css/reset.css" />-->
+    <link rel="stylesheet" type="text/css" href="http://akottr.github.io/css/akottr.css" />
+
+    <script src="../../Scripts/ng-table.min.js"></script>
+    <script src="../../node_modules/ui-select/dist/select.js"></script>
+    <link href="../../node_modules/ui-select/dist/select.css" rel="stylesheet" />
+    <link href="../../Content/css/select2.css" rel="stylesheet" />
+    <link href="../../Content/Selectize/css/selectize.css" rel="stylesheet" />
+    <link href="../../Content/ng-table.min.css" rel="stylesheet" />
+    <script src="../../Scripts/angular-animate.min.js"></script>
+    <script src="../../app/resources/js/PendingTasks.js"></script>
+    <script src="../../Scripts/Sortable/jquery.dragtable.js"></script>
+
+    <style>
+        .thumbnail1 {
+            float: left;
+            /*width: 60px;*/
+            margin-top: 3px;
+            margin-bottom: 3px;
+        }
+    </style>
+
+    <script>
+        //$(document).ready(function () {
+        //    $("#mySel2").select2({
+        //        closeOnSelect: false
+        //    });
+        //})
+    </script>
+
+</head>
+<body ng-controller="ngtableCtrl" ng-cloak>
+    <a ng-click="open()" style="display:none;">+ Add</a>
+
+    <div class="bs-component">
+        <div class="alert alert-info">
+            <p>Sort key: {{sortKey}}</p>
+            <p>Reverse: {{reverse}}</p>
+            <p>Search String : {{search}}</p>
+            <p>Calendar --> Pending Tasks</p>
+        </div>
+        <form class="form-inline">
+            <div class="row">
+                <div class="col-md-1">
+                    &nbsp;
+                </div>
+
+                <div class="col-md-1" style="padding-right:0px;">
+                    <a ng-click="open()"><img src="../../Images/Sales/Calendar/icon_add.png" title="Add" />New Task</a>
+                </div>
+               
+                <div class="col-md-1" style="display:none;">
+                    <a ng-click="setup()"><img src="../../Images/Sales/Calendar/icon_customize.png" title="Setup" />Setup</a>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="col-md-2">Search</label>
+                    <div class="col-md-4">
+                        <input type="text" ng-model="search" class="form-control" placeholder="Search">
+                    </div>
+                </div>
+
+                <div class="col-md-1">
+                    <a><img src="../../Images/Sales/Calendar/icon_refresh_g.png" title="Refresh" />Refresh</a>
+                </div>
+
+            </div>
+        </form>
+       
+    </div>
+    <!--code for dynamic table with dynamic colum for testing start-->
+    <div class="row">
+        &nbsp;
+    </div>
+
+    <div class="row">
+        <div class="col-md-1">
+            <div style="margin-bottom:5px;">
+                <a ng-click="addNotePopUp()"><img src="../../Images/Sales/Calendar/icon_add_notes.png" title="Add Note" /></a>
+            </div>
+            <div style="margin-bottom:5px;">
+                <a ng-click="editSingleAppointmentPopUp()"><img src="../../Images/Sales/Calendar/icon_edit.png" title="Edit" /></a>
+            </div>
+            <div style="margin-bottom:5px;">
+                <a><img src="../../Images/Sales/Calendar/icon_complete.png" title="Complete" /></a>
+            </div>
+            <div style="margin-bottom:5px;">
+                <a><img src="../../Images/Sales/Calendar/icon_forward.png" title="Reschedule" /></a>
+            </div>
+            <div style="margin-bottom:5px;">
+                <a ng-click="deleteSelectedCheckContact()"><img src="../../Images/Sales/Calendar/icon_delete.png" title="Delete" /></a>
+            </div>
+            <div style="margin-bottom:5px;">
+                <a><img src="../../Images/Sales/Calendar/icon_excel.png" title="To Excel" /></a>
+            </div>
+            <div style="margin-bottom:5px;">
+                <a><img src="../../Images/Sales/Calendar/icon_print.png" title="Print" /></a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <table class="table" style="background-color: rgb(243, 182, 180);">
+                <thead>
+                    <tr>
+                        <th colspan="2">
+                            Overdue(17)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="user in overdue">
+                        <td style="border:none;"><input type="checkbox" ng-model="user.isChecked" ng-click="selectEntity()" /></td>
+                        <td style="border:none;">
+                            <div>
+                                {{user.date}}
+                            </div>
+                            <div>
+                                <a>{{user.overduelink}}</a>
+                            </div>
+                            <div>
+                                {{user.overduecase}}
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-3">
+            <table class="table" style="background-color: rgb(255, 240, 192);">
+                <thead>
+                    <tr>
+                        <th colspan="2">
+                            Today(1)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="user in today">
+                        <td style="border:none;"><input type="checkbox" ng-model="user.isChecked" ng-click="selectEntity()" /></td>
+                        <td style="border:none;">
+                            <div>
+                                {{user.date}}
+                            </div>
+                            <div>
+                                <a>{{user.todaylink}}</a>
+                            </div>
+                            <div>
+                                {{user.todaycase}}
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-3">
+            <table class="table" style="border:2px solid #ddd;">
+                <thead>
+                    <tr>
+                        <th colspan="2">
+                            Upcoming(2)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="user in upcoming" style="border-bottom:2px solid #ddd;">
+                        <td style="border:none;"><input type="checkbox" ng-model="user.isChecked" ng-click="selectEntity()" /></td>
+                        <td style="border:none;">
+                            <div>
+                                {{user.date}}
+                            </div>
+                            <div>
+                                <a>{{user.upcominglink}}</a>
+                            </div>
+                            <div>
+                                {{user.upcomingcase}}
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-1">
+
+        </div>
+    </div>
+
+    <!--<div class="row">
+        <button class="btn btn-primary" ng-click="deleteParticularColumn()">Delete column</button>
+    </div>-->
+    <!--code for dynamic table with dynamic colum for testing end-->
+
+
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header" style="background-color:#058ae5;color:white;border-top-left-radius:4px;border-top-right-radius:4px;">
+            <button type="button" class="close" data-dismiss="modal" style="color:white;opacity:1;border:none;" ng-click="cancel()">&times;</button>
+            <h4 class="modal-title" style="font-size:14px;">Add Task</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Task Name</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" ng-model="user.taskName" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Due By</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" ng-model="user.dueBy" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Status</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" ng-model="user.status"/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Reminder</label>
+                        </div>
+                        <div class="col-md-8">
+
+                                <div class="row" ng-repeat="obj in user.reminder track by $index">
+                                    <div class="col-md-3 col-sm-3">
+                                       <select ng-model="user.reminder[$index].type" ng-options="x for x in remindertype"></select>
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-3">
+                                       <input type="text" class="form-control"  ng-model="user.reminder[$index].duration" />
+                                    </div>
+
+                                    
+                                    <div class="col-md-3 col-sm-3">
+                                       <select ng-model="user.reminder[$index].timein" ng-options="x for x in remindertimein"></select>
+                                    </div>
+
+                                    <div class="col-md-3 col-sm-3">
+                                       <a ng-click="deleteReminder($index)">X</a>
+                                    </div>
+                                </div>
+                              
+                                <div class="row" ng-hide="user.reminder.length >= 3">
+                                    <a ng-click="addReminder()">Add a reminder</a>
+                                </div>
+                           
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Company</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" ng-model="user.company" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Full Name</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" ng-model="user.fullname" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Description</label>
+                        </div>
+                        <div class="col-md-8">
+                            <textarea ng-model="user.description" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Repeat</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="checkbox" ng-click="checkRepeat()" ng-model="user.repeat"/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Owner</label>
+                        </div>
+                        <div class="col-md-8">
+                            <select ng-init="user.owner=owner[0]" ng-options="x for x in owner" ng-model="user.owner"/>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+                    
+                    <div class="row">
+                        <label>Add a Note</label>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label>Type</label>
+                        </div>
+                        <div class="col-md-4">
+                            <select ng-model="user.addnotetype" ng-options="x for x in noteType"></select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label>Note</label>
+                        </div>
+                        <div class="col-md-4">
+                            <textarea ng-model="user.addnotedesc"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+           
+        </div>
+
+        <div class="modal-footer" style="text-align:center;">
+            <button class="btn btn-primary" ng-click="ok()">Save</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+    <script id="myModalReminder.html" type="text/ng-template">
+        <div class="modal-header">
+            <h3 class="modal-title">Repeat</h3>
+        </div>
+        <div class="modal-body">
+            <div>
+                <label>Start date</label>
+                <input type="text" ng-model="reminderRepeat.startdate" placeholder="Start date">
+            </div>
+            <div>
+                <label>End date</label>
+                <input type="text" ng-model="reminderRepeat.enddate" placeholder="End date">
+            </div>
+            <div>
+                <label>Repeat type</label>
+                <select ng-model="reminderRepeat.repeattype" ng-options="x for x in repeattype"></select>
+            </div>
+            <div>
+                <label>Repeat every</label>
+                <select ng-model="reminderRepeat.repeatevery" ng-options="x for x in [] | range:1:30"></select>days
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">Save</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+    <script id="addNote.html" type="text/ng-template">
+        <div class="modal-header">
+            <h3 class="modal-title">Add Notes</h3>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <label class="col-md-2">Note type</label>
+                <div class="col-md-4">
+                    <select ng-model="addNote.noteType" ng-options="x for x in noteType" class="form-control"></select>
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-md-2">Text</label>
+                <div class="col-md-4">
+                    <textarea class="form-control" ng-model="addNote.text"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">Save</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+    <script id="editSingleAppointmentPopUp.html" type="text/ng-template">
+        <div class="modal-header">
+            <h3 class="modal-title">Edit Appointment</h3>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <label class="col-md-2">Subject</label>
+                <div class="col-md-4">
+                    <input type="text" ng-model="editAppointment.subject" class="form-control">
+                </div>
+                <label class="col-md-2">Invite Guests</label>
+
+            </div>
+            <div class="row">
+                <label class="col-md-2">Start date</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" ng-model="editAppointment.startdate">
+                </div>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" ng-model="editAppointment.inviteguests" />
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-md-2">End date</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" ng-model="editAppointment.enddate">
+                </div>
+                <label class="col-md-2">Attendees</label>
+            </div>
+            <div class="row">
+                <label class="col-md-2">Status</label>
+                <div class="col-md-4">
+                    <select class="form-control" ng-model="editAppointment.status" ng-options="x for x in status"></select>
+                </div>
+                <div class="col-md-6">
+                    <label>{{editAppointment.attendees}}</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <label class="col-md-2">Assign to</label>
+                <div class="col-md-4">
+                    <select class="form-control" ng-model="editAppointment.assignto" ng-options="x for x in assignto"></select>
+                </div>
+                <div class="col-md-6">
+                    <label>Add a Note</label>
+                    <div class="row" style="margin-left:15%;">
+                        <label class="col-md-2">Type</label>
+                        <select class="col-md-4" ng-model="editAppointment.addNote.type" ng-options="x for x in addNoteType"></select>
+                    </div>
+
+                    <div class="row" style="margin-left:15%;">
+                        <label class="col-md-2">Note</label>
+                        <textarea class="col-md-4" ng-model="editAppointment.addNote.note"></textarea>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <label style="margin-left:15px;">Reminder</label>
+
+                <div class="row" ng-repeat="obj in editAppointment.reminder track by $index" style="margin-left:140px;">
+                    <div class="col-md-2 col-sm-2">
+                        <div class="form-group">
+                            <select ng-model="editAppointment.reminder[$index].type" ng-options="x for x in remindertype" class="form-control"></select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-1 col-sm-1" style="padding-left:0px;">
+                        <div class="form-group">
+                            <input type="text" class="form-control" ng-model="editAppointment.reminder[$index].duration" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-2 col-sm-2" style="padding-left:0px;padding-right:23px;">
+                        <div class="form-group">
+                            <select ng-model="editAppointment.reminder[$index].timein" ng-options="x for x in remindertimein" class="form-control"></select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-1 col-sm-1" style="padding-left:0px;">
+                        <div class="form-group">
+                            <a ng-click="deleteReminder($index)">X</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="row" ng-hide="editAppointment.reminder.length >= 3" style="margin-left:15%;">
+                <a ng-click="addReminder()">Add a reminder</a>
+            </div>
+
+            <div class="row">
+                <label class="col-md-2">Company</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" ng-model="editAppointment.company">
+                </div>
+            </div>
+
+            <div class="row">
+                <label class="col-md-2">Full Name</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" ng-model="editAppointment.fullname">
+                </div>
+            </div>
+
+            <div class="row">
+                <label class="col-md-2">Text</label>
+                <div class="col-md-4">
+                    <textarea class="form-control" ng-model="editAppointment.text"></textarea>
+                </div>
+            </div>
+
+            <div class="row">
+                <label class="col-md-2">Repeat</label>
+                <div class="col-md-4">
+                    <input type="checkbox" ng-model="editAppointment.repeat" ng-click="openRepeatPopUp(editAppointment.repeat)" />
+                </div>
+            </div>
+
+            <div class="row">
+                <label class="col-md-2">Outlook Sync</label>
+                <div class="col-md-4">
+                    <select class="form-control" ng-model="editAppointment.outlooksync">
+                        <option>No</option>
+                        <option>Yes</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <label class="col-md-2">Google Sync</label>
+                <div class="col-md-4">
+                    <select class="form-control" ng-model="editAppointment.googlesync">
+                        <option>No</option>
+                        <option>Yes</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">Save</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+    <script id="editSingleAppointmentRepeatPopUp.html" type="text/ng-template">
+        <div class="modal-header">
+            <h3 class="modal-title">Repeat</h3>
+        </div>
+
+        <div class="modal-body">
+            <div class="row">
+                <label class="col-md-2">Start date</label>
+                <div class="col-md-4">
+                    <input type="text" ng-model="editSingleAppointmentRepeat.startdate" class="form-control">
+                </div>
+            </div>
+
+            <div class="row">
+                <label class="col-md-2">End date</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" ng-model="editSingleAppointmentRepeat.enddate">
+                </div>
+            </div>
+
+            <div class="row">
+                <label class="col-md-2">Repeat type</label>
+                <div class="col-md-4">
+                    <select class="form-control" ng-model="editSingleAppointmentRepeat.repeattype" ng-options="x for x in repeatType"></select>
+                </div>
+            </div>
+
+            <div class="row">
+                <label class="col-md-2">Repeat every</label>
+                <div class="col-md-4">
+                    <select class="form-control" ng-model="editSingleAppointmentRepeat.repeatevery" ng-options="x for x in [] | range:1:30"></select>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">Save</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+    <script id="editBulkEntityPopUp.html" type="text/ng-template">
+        <div class="modal-header">
+            <h3 class="modal-title">Batch Edit</h3>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <label class="col-md-2">Modify field:</label>
+                <div class="col-md-4">
+                    <select ng-model="editBulkAppointment.modifiedField" ng-options="x for x in editBulkAppointmentModifiedField" class="form-control"></select>
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-md-2">With value:</label>
+                <div class="col-md-4">
+                    <select class="form-control" ng-model="editBulkAppointment.withValue" ng-options="x for x in editBulkAppointmentWithValue"></select>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">Update</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+    <script id="setUpPopUp.html" type="text/ng-template">
+
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel()">&times;</button>
+            <h3 class="modal-title">Select the columns for this view</h3>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <label>Add and reorder Appointments fields: (Click this box to add more fields. Drag and reorder the fields to change their position.)</label>
+                <div class="row" style="margin-left:2px;margin-right:2px;border:2px solid;border-color:darkgray;">
+                    <div ui-sortable="sortableOptions" ng-model="fields">
+                        <div ng-repeat="item in fields" class="thumbnail1">
+                            <span style="margin-left:5px;margin-right:5px;border: 1px solid;border-color: #aaa;background-color: #e4e4e4;cursor: pointer;">
+                                {{item}}
+                                <a ng-click="deleteFields($index)"><i class="glyphicon glyphicon-remove"></i></a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-2" style="padding-right:0px;">
+                    <label>Sort by:</label>
+
+                </div>
+                <div class="col-md-2">
+                    <select ng-model="sortby.type" ng-options="x for x in fields"></select>
+                </div>
+                <div class="col-md-1">
+                    <input type="checkbox" ng-model="sortby.checkDescending" style="float:right;" />
+                </div>
+                <div class="col-md-1" style="padding-left:0px;">
+                    <label>Descending</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+                    <label>Related Table1:</label>
+                </div>
+                <div class="col-md-4">
+                    <!--multiple select selectbox-->
+                    <!--<select ng-model="setupRelatedTable1" ng-init="setupRelatedTable1=relatedTable1[0]" ng-options="x for x in relatedTable1" ng-change="onchangeRelatedTable1(setupRelatedTable1)"></select>-->
+                    <select ng-model="setupRelatedTable1" ng-options="x for x in relatedTable1"></select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-10">
+                    <ui-select ng-model="person.selected" multiple theme="selectize" title="Choose a person">
+                        <ui-select-match placeholder="Click here to start...">{{$item.name}}</ui-select-match>
+                        <ui-select-choices repeat="item in people | filter: $select.search">
+                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+                    <label>Related Table2:</label>
+                </div>
+                <div class="col-md-4">
+                    <select ng-model="setupRelatedTable2" ng-options="x for x in relatedTable2"></select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-10">
+                    <!--multiple select selectbox-->
+                    <ui-select ng-model="person.selected" multiple theme="selectize" title="Choose a person">
+                        <ui-select-match placeholder="Click here to start...">{{$item.name}}</ui-select-match>
+                        <ui-select-choices repeat="item in people | filter: $select.search">
+                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">Save</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+</body>
+</html>
